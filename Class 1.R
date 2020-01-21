@@ -83,5 +83,3 @@ tail (mtcars)
 str(mtcars)
 #names tells us column names
 names (mtcars)
-
-2+2
