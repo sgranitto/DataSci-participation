@@ -1,0 +1,57 @@
+---
+title: "R Markdown Day 1"
+author: "Shawn Granitto"
+date: Last updated `r format(Sys.time(), "%B %d, %Y")`
+output: 
+  html_document:
+    theme: darkly
+    toc: true
+
+---
+```{r}
+2+2
+```
+```{r}
+# install.packages("gapminder")
+# install.packages("DT")
+# install.packages("tibble")
+```
+# code is being shown in output
+```{r }
+library(gapminder)
+library(DT)
+library(tibble)
+```
+# echo=false tells rmarkdown to not display the code in the output
+```{r gapminder view, echo=FALSE}
+gapminder
+```
+
+# Mtcars is a dataset describing cars.
+```{r}
+
+mtcars
+mtcars ["mpg"]
+mtcars [["mpg"]]
+mean(mtcars $mpg)
+```
+
+## the mean difference was `r mean(mtcars$mpg)`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
