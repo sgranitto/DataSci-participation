@@ -12,9 +12,9 @@ output:
 2+2
 ```
 ```{r}
-# install.packages("gapminder")
-# install.packages("DT")
-# install.packages("tibble")
+ # install.packages("gapminder")
+ # install.packages("DT")
+ # install.packages("tibble")
 ```
 # code is being shown in output
 ```{r }
