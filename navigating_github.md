@@ -1,15 +1,15 @@
 
-Class **homepage** repository:
-https://github.com/USF-Psych-DataSci/DataSci-home
+Class **homepage** repository: [DataSci-home](https://github.com/USF-Psych-DataSci/DataSci-home)
 
-Class *account* repository:
-https://github.com/USF-Psych-DataSci
+
+Class *account* repository: [Class Repository](https://github.com/USF-Psych-DataSci)
+
 
 ***The account USF-Psych-DataSci is an Org account***
 
 
-My participation repository:
-https://github.com/sgranitto/DataSci-participation/
+My participation repository: [Sgranitto participation repository](https://github.com/sgranitto/DataSci-participation/)
 
-My User Account:
-https://github.com/sgranitto/
+
+My User Account: [Sgranitto Account](https://github.com/sgranitto/)
+
