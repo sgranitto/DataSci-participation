@@ -3,7 +3,7 @@
 Class **homepage** repository: [DataSci-home](https://github.com/USF-Psych-DataSci/DataSci-home)
 
 
-Class *account* repository: [Class Repository](https://github.com/USF-Psych-DataSci)
+Class *account* repository: [Class Repository](https://github.com/USF-Psych-DataSci-2020)
 
 
 ***The account USF-Psych-DataSci is an Org account***
