@@ -85,11 +85,11 @@ ggplot(gapminder, aes(gdpPercap, lifeExp)) +
 ```{r, fig.width = 5, fig.height = 2}
 gapminder %>% 
   filter(continent != "Oceania") %>% 
-  ggplot(aes(gdpPercap, lifeExp)) +
+  ggplot( shape=21, colour="red", fill="black", aes(gdpPercap, lifeExp,)) +
   facet_wrap(~ continent, nrow = 1, scales = "free" ) +
   geom_point(alpha = 0.2) +
   scale_x_log10(labels = scales::comma_format()) +
-  scale_size_area(max_size=.1)#here is where to pickup
+  scale_size_area(0) 
 ```
 
 A list of shapes can be found [at the bottom of the `scale_shape` documentation](https://ggplot2.tidyverse.org/reference/scale_shape.html).
@@ -100,7 +100,7 @@ Instead of alpha transparency, suppose you're wanting to fix the overplotting is
 
 ```{r, fig.width = 5, fig.height = 2}
 ggplot(gapminder) +
-  geom_point(aes(gdpPercap, lifeExp, size = 0.1)) +
+  geom_point(aes(gdpPercap, lifeExp), size = 0.1) +
   scale_x_log10(labels = scales::dollar_format())
 ```
 
@@ -121,10 +121,10 @@ tribble(
   3, 0.5, 0.9,
   4, 0.4, 0.5
 ) %>% 
-  ggplot(aes(x, y)) + 
-  geom_line()
+  ggplot(aes(x, y),geom_text('time')) + 
+  geom_line(arrow=arrow()) 
+ 
 ```
-
 ## Exercise 5: Life expectancies in Africa
 
 ### 5(a) Unhiding the data
@@ -138,7 +138,7 @@ gapminder %>%
   filter(continent == "Americas") %>% 
   ggplot(aes(country, lifeExp)) + 
   geom_point() +
-  geom_boxplot() +
+  geom_boxplot(alpha=.0001) +
   scale_x_discrete()
 ```
 
@@ -147,11 +147,14 @@ gapminder %>%
 We're starting with the same plot as above, but instead of the points + boxplot, try a ridge plot instead using `ggridges::geom_density_ridges()`, and adjust the `bandwidth`.
 
 ```{r, fig.width = 5, fig.height = 2}
+library(ggplot2)
+library(ggridges)
 gapminder %>% 
   filter(continent == "Americas") %>% 
-  ggplot(aes(country, lifeExp)) + 
-  geom_point() +
-  geom_boxplot()
+  ggplot(aes(country, lifeExp)) +
+  ggridges::geom_density_ridges (mapping = aes(country, lifeExp))
+  # geom_point() +
+  # geom_boxplot()
 ```
 
 ## Exercise 6: Bar plot madness
@@ -166,10 +169,12 @@ gapminder %>%
 - Capitalize the legend title.
 
 ```{r, fig.width = 5, fig.height = 2}
+library(scales)
 mtcars %>% 
   mutate(transmission = if_else(am == 0, "automatic", "manual")) %>% 
   ggplot(aes(cyl)) +
-  geom_bar(aes(color = transmission))
+  scale_y_continuous(labels=scales::percent)+
+  geom_bar(aes(color = transmission), position='fill')
 ```
 
 ### 6(b) Bar heights already calculated
@@ -184,8 +189,9 @@ Here's the number of people having a certain hair colour from a sample of 592 pe
 Fix the following bar plot so that it shows these counts.
 
 ```{r}
-ggplot(hair, aes(Hair, n)) +
-  geom_bar()
+hair
+  ggplot( mapping = aes(n)) +
+  geom_bar() +
 ```
 
 ## Exercise 7: Tiling
@@ -203,6 +209,7 @@ _Hint:_ What's the title of this exercise?
 ```{r}
 ggplot(hair_eye, aes(Hair, Eye)) +
   geom_point(aes(colour = n))
+  geom_tile(aes(hair_eye))
 ```
 
 By the way, `geom_count()` is like `geom_bar()`: it counts the number of overlapping points.
