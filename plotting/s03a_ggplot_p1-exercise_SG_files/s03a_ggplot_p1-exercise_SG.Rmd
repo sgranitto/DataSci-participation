@@ -10,11 +10,15 @@ output:
 
 Begin by loading the required packages. If you don't have these installed (or don't know whether you have them installed), you can install them by executing the following code in your console:
 
-```
+```{r}
 install.packages("tidyverse")
 install.packages("scales")
 install.packages("tsibble")
+install.packages("ggplot2")
+install.packages("gganimate")
+install.packages("dplyr")
 ```
+
 
 Now run this code chunk to load the packages:
 
