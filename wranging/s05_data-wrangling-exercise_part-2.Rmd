@@ -44,13 +44,22 @@ all of the commands in a task using the pipe `%>%`.
    with a descriptive object name.
 
 ```{r}
-mtcars
-select(mtcars,mpg, cyl)
+mtcars_6 <- mtcars %>% 
+  as_tibble(rownames = "Model") %>% 
+  filter(cyl==6) %>% 
+  select(Model, mpg, hp) %>% 
+  print()
+
+
 ```
 
 2. Print the results from Task 1 in an appealing way by using `knitr::kable()`.
 
 ```{r}
+#install.packages("rmarkdown")
+#library(rmarkdown)
+knitr::kable(mtcars_6)
+
 ```
 
 Let's use the `iris` dataset. Complete the following tasks. Chain together
@@ -61,32 +70,67 @@ all of the commands in a task using the pipe `%>%`.
    a new object.
 
 ```{r}
+iris_tidy <- iris %>% 
+  select(species = Species, sepal_length = Sepal.Length, sepal_width = Sepal.Width, petal_length = Petal.Length, petal_width = Petal.Width ) %>% 
+select(species, everything()) %>% 
+  print()
+#could also use the rename function
 ```
+
 
 4. Using the data from Task 3, plot the sepal width for each species. Perhaps 
    use a boxplot or a jitter plot (or both overlaid!). Be sure to format the
    axis labels nicely.
 
 ```{r}
+#install.packages("ggplot2")
+#library(ggplot2)
+iris_tidy %>% 
+  ggplot( aes( species, sepal_width)) +
+  geom_boxplot()+
+  geom_jitter()
+
 ```
 
 5. `iris` expresses all of the measurements in centimeters. Convert them to 
    inches (1 in = 2.54 cm). Store this dataset as a new object.
 
 ```{r}
+iris_inches <- iris_tidy %>% 
+  mutate(sepal_length = sepal_length/2.54,
+         sepal_width = sepal_width / 2.54,
+         petal_length = petal_length / 2.54,
+         petal_width = petal_width/2.54) %>% 
+  print()
+
 ```
+
 
 6. Using the data from Task 5, plot the relationship between sepal width and
    sepal length. Indicate species using color and point shape.
 
 ```{r}
+iris_inches %>% 
+  ggplot( aes( sepal_width, sepal_length)) +
+  geom_point(aes(color = species, shape = species))
+
 ```
+
+
+
+
 
 7. Using the data from Task 5, plot the relationship between sepal width and
    sepal length. This time, separate each species into a different subplot 
    (facet).
 
 ```{r}
+install.packages("stringi")
+library(stringi)
+iris_inches %>% 
+  ggplot( aes( sepal_width, sepal_length)) +
+  geom_point(aes(color = species, shape = species))+
+  facet_grid( rows = vars(species))
 ```
 
 
@@ -105,8 +149,9 @@ Let's do some practice with grouping (and ungrouping) and summarizing data frame
 
 ```{r}
 gapminder %>% 
-  group_by(FILL_THIS_IN) %>% 
-  FILL_THIS_IN(min_life = min(lifeExp))
+  group_by(continent, year) %>% 
+  summarize(min_life = min(round(lifeExp)))  
+#When using summarize, name the column first and then = then what you want the column to show
 ```
 
 
@@ -126,7 +171,14 @@ Now compute mean scores for Conscientiousness, as well as `sd` and `min` scores
 for reach person.
 
 ```{r}
-
+psych::bfi %>%
+  as_tibble() %>% 
+  select(C1:C5) %>% 
+  rowwise() %>% 
+  mutate(C_mean = mean(c(C1, C2, C3, C4, C5), na.rm = TRUE), 
+         C_sd = sd(c(C1, C2, C3, C4, C5), na.rm = TRUE),
+         C_min = min(c(C1, C2, C3, C4, C5), na.rm = TRUE)) %>% 
+  ungroup()
 ```
 
 Some functions are **vectorized**, so you don't need `rowwise()`. 
@@ -174,9 +226,11 @@ psych::bfi %>%
    participant. Store this data frame as a new object.
    
 ```{r}
-FILL_THIS_IN <-
+new_bfi <-
   psych::bfi %>% 
-  FILL_THIS_IN(FILL_THIS_IN)
+  select(education) %>% 
+  mutate(education = factor(education)) %>% 
+  print ()
 ```
 
 4. Use the data from Task 3 to summarize the distributions of Big Five scores 
