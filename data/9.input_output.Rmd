@@ -49,3 +49,8 @@ Read = input write = output
 read_csv(here::here("s008_data", "exported_file.csv"))
 ```
 
+
+```{r}
+
+```
+
