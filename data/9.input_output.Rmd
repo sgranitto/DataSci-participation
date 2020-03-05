@@ -1,0 +1,51 @@
+get---
+title: "s09 input output"
+output: 
+  html_document:
+    keep_md: true
+    theme: paper
+---
+
+eval=false means it does not run
+```{r eval=false}
+install.packages("here")
+```
+
+
+```{r}
+library(tidyverse)
+library(gapminder)
+```
+
+
+```{r}
+(gap_asia_2007 <- gapminder %>% filter(year == 2007, continent == "Asia"))
+write_csv(gap_asia_2007, "exported_file.csv")
+```
+
+
+
+```{r}
+getwd()
+```
+
+
+
+```{r}
+write_csv(gap_asia_2007, here::here("data", "s008_data", "exported_file.csv"))
+```
+
+
+```{r}
+file.path("input_output", "exported_file.csv")
+```
+
+```{r}
+write_csv(gap_asia_2007, here::here( "s008_data", "exported_file.csv"))
+```
+
+Read = input write = output
+```{r}
+read_csv(here::here("s008_data", "exported_file.csv"))
+```
+
